@@ -1,5 +1,5 @@
-package com.lp7.atividade07.mapping;
+package com.lp7.atividade07.mapper;
 
-public class PedidoMapping {
+public class PedidoMapper {
 
 }

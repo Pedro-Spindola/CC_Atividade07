@@ -1,8 +1,8 @@
-package com.lp7.atividade07.mapping;
+package com.lp7.atividade07.mapper;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClienteMapping {
+public class ClienteMapper {
 
 }
