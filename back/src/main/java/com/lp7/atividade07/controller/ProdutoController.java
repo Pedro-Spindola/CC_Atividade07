@@ -18,33 +18,29 @@ import com.lp7.atividade07.service.ProdutoService;
 public class ProdutoController {
         @Autowired
         ProdutoService produtoService;
+
         @GetMapping("/{id}")
         public ProdutoResponseDTO buscarProdutoID(@PathVariable Long id){
                 return produtoService.buscarProdutoID(id);
-
         }
+
         @GetMapping
         public List<ProdutoResponseDTO> listarTodosProdutos(){
              return produtoService.listarTodos();  
         }
+
         @PostMapping
         public ProdutoResponseDTO criarProduto(@RequestBody ProdutoRequestDTO produtoRequestDTO){
                 return produtoService.cadastrarProduto(produtoRequestDTO);
-
-
         }
+
         @PutMapping
         public ProdutoResponseDTO atualizarProduto(@RequestBody ProdutoRequestDTO produtoRequestDTO){
                 return produtoService.atualizarProduto(produtoRequestDTO);
         }
+
         @PutMapping("/{id}")
         public boolean statusProduto(@PathVariable Long id){
                 return produtoService.alterarStatus(id);
-
         }
-
-        
-    
-
-
 }

@@ -8,7 +8,8 @@ import com.lp7.atividade07.service.EstoqueService;
 @RequestMapping("/api/v1/estoque")
 
 public class EstoqueController {
-     @Autowired
+    
+    @Autowired
     EstoqueService estoqueService;
 
 }

@@ -1,6 +1,16 @@
 package com.lp7.atividade07.dto;
 
-public record  ProdutoResponseDTO {
+import java.math.BigDecimal;
 
+import com.lp7.atividade07.model.enums.StatusProduto;
 
+public record ProdutoResponseDTO(
+    Long id,
+    String nome,
+    String descricao,
+    Integer quantidadeCaixa,
+    BigDecimal precoVenda,
+    StatusProduto status,
+    Integer quantidadeEmEstoque
+) {
 }

@@ -1,5 +1,6 @@
 package com.lp7.atividade07.dto;
 
-public class EstoqueRequestDTO {
-
-}
+public record EstoqueRequestDTO(
+    Integer quantidade,
+    Long idProduto
+) {}

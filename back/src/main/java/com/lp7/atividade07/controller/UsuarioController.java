@@ -8,7 +8,7 @@ import com.lp7.atividade07.service.UsuarioService;
 @RequestMapping("/api/v1/usuario")
 public class UsuarioController {
         @Autowired
-         UsuarioService usuarioService;
+        UsuarioService usuarioService;
 
 
 }

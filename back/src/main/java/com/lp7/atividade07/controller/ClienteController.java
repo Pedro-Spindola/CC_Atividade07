@@ -8,6 +8,7 @@ import com.lp7.atividade07.service.ClienteService;
 @RequestMapping("/api/v1/cliente")
 
 public class ClienteController {
+    
     @Autowired
     ClienteService clienteService;
     
