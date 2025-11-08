@@ -22,13 +22,13 @@ public class UsuarioService {
 
     public UsuarioResponseDTO buscarUsuarioPorId(Long idUsuario){
         Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
-        return usuarioMapper.tResponseDTO(usuario);
+        return usuarioMapper.toResponseDTO(usuario);
     }
 
     public UsuarioResponseDTO registrarUsuario(UsuarioRequestDTO dto){
         Usuario usuario = usuarioMapper.toEntity(dto);
         Usuario salvo = usuarioRepository.save(usuario);
-        return usuarioMapper.tResponseDTO(salvo);
+        return usuarioMapper.toResponseDTO(salvo);
     }
 
     public UsuarioResponseDTO atualizarUsuario(UsuarioRequestDTO dto, Long idUsuario){
@@ -41,21 +41,22 @@ public class UsuarioService {
         usuario.setStatus(dto.status());
 
         Usuario salvo = usuarioRepository.save(usuario);
-        return usuarioMapper.tResponseDTO(salvo);
+        return usuarioMapper.toResponseDTO(salvo);
     }
 
     public List<UsuarioResponseDTO> buscarTodos(){
         List<Usuario> usuarios = usuarioRepository.findAll();
         return usuarios.stream()
-                       .map(usuarioMapper::tResponseDTO)
+                       .map(usuarioMapper::toResponseDTO)
                        .toList();
     }
 
     public UsuarioResponseDTO inativarUsuario(Long idUsuario){
         Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
-        usuario.setStatus(StatusUsuario.INATIVO);
+        if(usuario.getStatus() == StatusUsuario.ATIVO) usuario.setStatus(StatusUsuario.INATIVO);
+        else usuario.setStatus(StatusUsuario.ATIVO);
         Usuario salvo = usuarioRepository.save(usuario);
-        return usuarioMapper.tResponseDTO(salvo);
+        return usuarioMapper.toResponseDTO(salvo);
     }
 }
     

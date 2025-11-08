@@ -44,7 +44,7 @@ public class ClienteService {
         cliente.setTipo(dto.tipo());
         cliente.setDocumento(dto.documento());
         cliente.setEndereco(dto.endereco());
-        cliente.setStatus(dto.statusCliente());
+        cliente.setStatus(dto.status());
 
         Cliente salvo = clienteRepository.save(cliente);
         return clienteMapper.toResponseDTO(salvo);
@@ -59,7 +59,8 @@ public class ClienteService {
  
     public ClienteResponseDTO inativarCliente(Long idCliente){
         Cliente cliente = clienteRepository.findById(idCliente).orElse(null);
-        cliente.setStatus(StatusCliente.INATIVO);
+        if(cliente.getStatus() == StatusCliente.ATIVO) cliente.setStatus(StatusCliente.INATIVO);
+        else cliente.setStatus(StatusCliente.ATIVO);
         Cliente salvo = clienteRepository.save(cliente);
         return clienteMapper.toResponseDTO(salvo);
     }

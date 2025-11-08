@@ -1,17 +1,15 @@
 package com.lp7.atividade07.dto;
 
 import java.math.BigDecimal;
-
-import com.lp7.atividade07.model.Cliente;
-import com.lp7.atividade07.model.Usuario;
+import java.util.List;
 
 public record PedidoResponseDTO(
     Long id,
     BigDecimal total,
     BigDecimal troco,
-    Cliente cliente,
-    Usuario usuario
-
+    ClienteResponseDTO cliente,
+    UsuarioResponseDTO usuario,
+    List<ItemResponseDTO> itensComprados
 ) {}
 
 

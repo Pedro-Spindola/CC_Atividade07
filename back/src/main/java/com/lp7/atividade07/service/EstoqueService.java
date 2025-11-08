@@ -12,7 +12,7 @@ import com.lp7.atividade07.repository.ProdutoRepository;
 
 @Service
 public class EstoqueService {
-     @Autowired
+    @Autowired
     ProdutoRepository produtoRepository;
 
     @Autowired
@@ -27,16 +27,18 @@ public class EstoqueService {
 }
 
  // ATUALIZAR / EDITAR ESTOQUE
-    public EstoqueResponseDTO atualizarEstoque(EstoqueRequestDTO dto){
-        // Procurar estoque existente pelo produto
-        Estoque estoque = estoqueRepository.findByProdutoId(dto.idProduto()).orElse(null);
-        // Atualiza a quantidade
-        estoque.setQuantidade(dto.quantidade());
-        // Salva no banco
-        Estoque salvo = estoqueRepository.save(estoque);
-        // Retorna o DTO de resposta
-        return estoqueMapper.toResponseDTO(salvo);
-    }
+  public EstoqueResponseDTO atualizarEstoqueProduto(EstoqueRequestDTO dto){
+    System.out.println("Meu dto: " + dto.idProduto() + " - " + dto.quantidade());
+
+      Estoque estoque = estoqueRepository.findByProdutoId(dto.idProduto())
+        .orElseThrow(() -> new RuntimeException("Estoque não encontrado para o produto ID: " + dto.idProduto()));
+      // Atualiza a quantidade
+      estoque.setQuantidade(dto.quantidade());
+      // Salva no banco
+      Estoque salvo = estoqueRepository.save(estoque);
+      // Retorna o DTO de resposta
+      return estoqueMapper.toResponseDTO(salvo);
+  }
 }
 
 
