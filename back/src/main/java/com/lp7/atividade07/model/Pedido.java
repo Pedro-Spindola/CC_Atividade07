@@ -30,4 +30,42 @@ public class Pedido {
     private Usuario usuario;
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itensPedido;
+
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public BigDecimal getTotal() {
+        return total;
+    }
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+    public BigDecimal getTroco() {
+        return troco;
+    }
+    public void setTroco(BigDecimal troco) {
+        this.troco = troco;
+    }
+    public Cliente getCliente() {
+        return cliente;
+    }
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    public List<ItemPedido> getItensPedido() {
+        return itensPedido;
+    }
+    public void setItensPedido(List<ItemPedido> itensPedido) {
+        this.itensPedido = itensPedido;
+    }
 }

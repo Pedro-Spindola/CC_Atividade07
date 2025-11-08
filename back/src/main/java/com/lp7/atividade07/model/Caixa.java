@@ -15,4 +15,17 @@ public class Caixa {
     private Long id;
     @Column(nullable = true)
     private BigDecimal carteira;
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public BigDecimal getCarteira() {
+        return carteira;
+    }
+    public void setCarteira(BigDecimal carteira) {
+        this.carteira = carteira;
+    }
 }
