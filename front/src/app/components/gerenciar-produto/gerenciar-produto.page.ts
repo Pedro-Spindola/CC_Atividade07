@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { StatusProduto } from '../../model/enums/StatusProduto';
 import { Produto } from '../../model/Produto';
 import { CommonModule } from '@angular/common';
@@ -23,7 +23,7 @@ export class GerenciarProdutoPage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute, // Para ler o ID da URL
-    // private router: Router, // Para navegar após salvar
+    private router: Router,
     // private produtoService: ProdutoService // Injete seu serviço
   ) {
     // Inicializa o formulário
@@ -117,6 +117,6 @@ export class GerenciarProdutoPage implements OnInit {
    * Chamado ao clicar em "Voltar" ou "Cancelar".
    */
   voltar(): void {
-    alert("Voltar");
+    this.router.navigateByUrl('/produto');
   }
 }

@@ -113,12 +113,10 @@ export class ProdutoPage {
   }
 
   novoProduto(): void {
-    alert("Abrir tela novo produto");
-    //this.router.navigate(['/admin/produtos/novo']);
+    this.router.navigateByUrl('/gerenciarProduto');
   }
 
   editarProduto(id: Number): void {
-    alert("Abrir tela editar produto");
-    //this.router.navigate(['/admin/produtos/editar', id]);
+    this.router.navigateByUrl('/gerenciarProduto');
   }
 }
