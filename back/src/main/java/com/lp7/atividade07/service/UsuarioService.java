@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.lp7.atividade07.dto.UsuarioRequestDTO;
 import com.lp7.atividade07.dto.UsuarioResponseDTO;
+import com.lp7.atividade07.exception.CampoObrigatorioNuloException;
+import com.lp7.atividade07.exception.DadoJaCadastradoException;
 import com.lp7.atividade07.mapper.UsuarioMapper;
 import com.lp7.atividade07.model.Usuario;
 import com.lp7.atividade07.model.enums.StatusUsuario;
@@ -26,6 +28,38 @@ public class UsuarioService {
     }
 
     public UsuarioResponseDTO registrarUsuario(UsuarioRequestDTO dto){
+
+        if(dto.nome() == null || dto.nome().trim().isEmpty())
+            throw new CampoObrigatorioNuloException("nome é obrigatório");
+        if(dto.nome().trim().length() < 3)
+            throw new CampoObrigatorioNuloException("nome deve ter no mínimo 3 caracteres");
+
+
+        if(dto.email() == null || dto.email().trim().isEmpty())
+            throw new CampoObrigatorioNuloException("email");
+        if(!dto.email().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"))
+            throw new CampoObrigatorioNuloException("email inválido (formato incorreto)");
+        if(usuarioRepository.findByEmail(dto.email()).isPresent())
+            throw new DadoJaCadastradoException("A senha deve conter pelo menos uma letra maiúscula.");
+
+
+
+        if(dto.senha() == null || dto.senha().trim().isEmpty())
+            throw new CampoObrigatorioNuloException("senha ");
+        if(dto.senha().length() < 8)
+            throw new CampoObrigatorioNuloException("senha deve ter no mínimo 8 caracteres");
+        if(!dto.senha().matches(".*[A-Z].*"))
+            throw new CampoObrigatorioNuloException("senha deve conter pelo menos uma letra maiúscula");
+        if(!dto.senha().matches(".*[0-9].*"))
+            throw new CampoObrigatorioNuloException("senha deve conter pelo menos um número");
+
+
+        if(dto.perfil() == null)
+            throw new CampoObrigatorioNuloException("perfil é obrigatório");
+
+        if(dto.status() == null)
+            throw new CampoObrigatorioNuloException("status é obrigatório");
+
         Usuario usuario = usuarioMapper.toEntity(dto);
         Usuario salvo = usuarioRepository.save(usuario);
         return usuarioMapper.toResponseDTO(salvo);

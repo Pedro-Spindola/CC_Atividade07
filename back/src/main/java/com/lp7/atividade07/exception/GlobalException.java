@@ -9,14 +9,24 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalException {
-    /*
+
     @ExceptionHandler(CampoObrigatorioNuloException.class)
-    public ResponseEntity<ErroResponse> handleProdutoNullException(CampoObrigatorioNuloException ex){
+    public ResponseEntity<ErroResponse> handleCampoObrigatorio(CampoObrigatorioNuloException ex){
         ErroResponse error = new ErroResponse(
-            HttpStatus.NOT_FOUND.value(),
+            HttpStatus.BAD_REQUEST.value(),
             ex.getMessage(),
             LocalDateTime.now()
         );
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-    }*/
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(DadoJaCadastradoException.class)
+    public ResponseEntity<ErroResponse> handleDadoJaCadastrado(DadoJaCadastradoException ex){
+        ErroResponse error = new ErroResponse(
+            HttpStatus.BAD_REQUEST.value(),
+            ex.getMessage(),
+            LocalDateTime.now()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
 }
