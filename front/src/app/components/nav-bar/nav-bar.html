@@ -7,7 +7,7 @@
 
     <div class="navbar-user">
       <img class="user-icon" src="usuario.svg" alt="User" />
-      <span class="user-name">{{ userName }}</span>
+      <span class="user-name">Olá, {{ userName }}</span>
       <button class="logout-btn" (click)="logout()">Sair</button>
     </div>
   </div>
@@ -23,7 +23,7 @@
       <li><a [routerLink]="['/funcionario']">Funcionário</a></li>
     </ul>
     <div class="caixa">
-      <h3>{{ valorCaixa | currency:'BRL' }}</h3>
+      <h3>Saldo: {{ valorCaixa | currency:'BRL' }}</h3>
     </div>
   </div>
 </nav>

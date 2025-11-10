@@ -7,10 +7,8 @@ public record UsuarioResponseDTO(
         Long id,
         String nome,
         String email,
-        String senha,
         PerfilUsuario perfil,
         StatusUsuario status
-
 ) {}
 
 

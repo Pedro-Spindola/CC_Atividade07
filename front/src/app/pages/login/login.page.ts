@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/auth-service';
+import { Credencial } from '../../model/Credencial';
+import { Funcionario } from '../../model/Funcionario';
 
 @Component({
   selector: 'app-login',
@@ -11,41 +13,39 @@ import { LoginService } from '../../services/auth-service';
   styleUrl: './login.page.scss'
 })
 export class LoginPage {
-  username: string = '';
-  password: string = '';
+  credencial: Credencial = { email: '', senha: '' }; 
   errorMessage: string = '';
 
   constructor(private authService: LoginService, private router: Router) {}
 
   login() {
-    if (!this.username || !this.password) {
+    // A verificação agora funciona sem o '?'
+    if (!this.credencial.email || !this.credencial.senha) {
       this.errorMessage = 'Por favor, preencha todos os campos...';
       return;
     }
-  
-    const dadosLogin = {
-      username: this.username,
-      password: this.password,
-    };
     
-    console.log('Enviando login:', dadosLogin);
-  
-    this.authService.login({ username: this.username, password: this.password })
-      .subscribe({
-        next: (res) => {
-          console.log('Resposta do backend:', res);
-          if (res.success) {
-            console.log('Login bem-sucedido');
-            this.errorMessage = '';
-            this.router.navigate(['']);
-          } else {
-            console.log('Login falhou');
-            this.errorMessage = 'Usuário ou senha inválidos';
-          }
+    this.errorMessage = ''; // Limpa o erro
+    
+    this.authService.login(this.credencial).subscribe({
+        next: (funcionarioLogado: Funcionario) => {
+          // SUCESSO! O back-end retornou o funcionário
+          console.log('Login bem-sucedido', funcionarioLogado);
+          
+          // MUDANÇA: Salva o usuário no LocalStorage
+          this.authService.salvarUsuarioLogado(funcionarioLogado);
+          
+          this.router.navigate(['']); // Navega para a home
         },
         error: (err) => {
+          // FALHA! O back-end retornou um erro (ex: 401 Não Autorizado)
           console.error('Erro na requisição:', err);
-          this.errorMessage = 'Erro ao tentar fazer login. Tente novamente.';
+          
+          if (err.status === 401 || err.status === 403) {
+            this.errorMessage = 'Usuário ou senha inválidos';
+          } else {
+            this.errorMessage = 'Erro ao tentar fazer login. Tente novamente.';
+          }
         }
       });
   }

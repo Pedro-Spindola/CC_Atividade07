@@ -23,10 +23,9 @@ public UsuarioResponseDTO toResponseDTO(Usuario usuario){
         usuario.getId(),
         usuario.getNome(),
         usuario.getEmail(),
-        usuario.getSenha(),
         usuario.getPerfil(),
         usuario.getStatus()
-            );
+    );
 }
 }
 
