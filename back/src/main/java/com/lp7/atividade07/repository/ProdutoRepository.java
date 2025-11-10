@@ -7,5 +7,5 @@ import com.lp7.atividade07.model.Produto;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long>{
-    
+
 }

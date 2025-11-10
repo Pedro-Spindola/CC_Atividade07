@@ -36,16 +36,16 @@ public class UsuarioService {
 
 
         if(dto.email() == null || dto.email().trim().isEmpty())
-            throw new CampoObrigatorioNuloException("email");
+            throw new CampoObrigatorioNuloException("email é obrigatório");
         if(!dto.email().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"))
             throw new CampoObrigatorioNuloException("email inválido (formato incorreto)");
         if(usuarioRepository.findByEmail(dto.email()).isPresent())
-            throw new DadoJaCadastradoException("A senha deve conter pelo menos uma letra maiúscula.");
+            throw new DadoJaCadastradoException("Esse email já existe.");
 
 
 
         if(dto.senha() == null || dto.senha().trim().isEmpty())
-            throw new CampoObrigatorioNuloException("senha ");
+            throw new CampoObrigatorioNuloException("senha é obrigatório ");
         if(dto.senha().length() < 8)
             throw new CampoObrigatorioNuloException("senha deve ter no mínimo 8 caracteres");
         if(!dto.senha().matches(".*[A-Z].*"))

@@ -29,4 +29,25 @@ public class GlobalException {
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+
+    @ExceptionHandler(ProdutoNaoEncontradoException.class)
+    public ResponseEntity<ErroResponse> handleProdutoNaoEncontrado(ProdutoNaoEncontradoException ex){
+    ErroResponse error = new ErroResponse(
+        HttpStatus.NOT_FOUND.value(),
+        ex.getMessage(),
+        LocalDateTime.now()
+    );
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+}
+
+@ExceptionHandler(ClienteNaoEncontradoException.class)
+public ResponseEntity<ErroResponse> handleClienteNaoEncontrado(ClienteNaoEncontradoException ex){
+    ErroResponse error = new ErroResponse(
+        HttpStatus.NOT_FOUND.value(),
+        ex.getMessage(),
+        LocalDateTime.now()
+    );
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+}
 }

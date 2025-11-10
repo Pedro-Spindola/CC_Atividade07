@@ -109,18 +109,9 @@ public class PedidoService {
         return pedidoMapper.toResponseDTO(salvo, clienteResponseDTO, usuarioResponseDTO, itemsResponseDTOs);
     }
 
-    // ATUALIZAR PEDIDO
+    
     public PedidoResponseDTO atualizarPedido(PedidoRequestDTO dto, Long idPedido){
-        /*
-        Pedido pedido = pedidoRepository.findById(idPedido).orElse(null);
-
-        pedido.setTotal(dto.total());
-        pedido.setTroco(dto.troco());
-        pedido.setCliente(dto.cliente());
-        pedido.setUsuario(dto.usuario());
-
-        Pedido salvo = pedidoRepository.save(pedido);
-        return pedidoMapper.toResponseDTO(salvo);*/
+      
         Cliente cliente = clienteRepository.findById(dto.cliente())
             .orElseThrow(() -> new RuntimeException("Cliente com id: " + dto.cliente() + " não encontrado."));
 
