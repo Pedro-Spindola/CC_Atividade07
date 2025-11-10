@@ -28,21 +28,21 @@ public class EstoqueService {
         return estoqueMapper.toResponseDTO(estoque);
 }
 
- // ATUALIZAR / EDITAR ESTOQUE
+
   public EstoqueResponseDTO atualizarEstoqueProduto(EstoqueRequestDTO dto){
     System.out.println("Meu dto: " + dto.idProduto() + " - " + dto.quantidade());
 
-   if(dto.idProduto() == null)
-        throw new CampoObrigatorioNuloException("id do produto");
+      if(dto.idProduto() == null)
+            throw new CampoObrigatorioNuloException("id do produto");
 
-    if(dto.quantidade() == null)
-        throw new CampoObrigatorioNuloException("quantidade é obrigatótio");
+        if(dto.quantidade() == null)
+            throw new CampoObrigatorioNuloException("quantidade é obrigatótio");
 
-    if(dto.quantidade() < 0)
-        throw new CampoObrigatorioNuloException("quantidade deve ser maior ou igual a zero");
+        if(dto.quantidade() < 0)
+            throw new CampoObrigatorioNuloException("quantidade deve ser maior ou igual a zero");
 
-    Estoque estoque = estoqueRepository.findByProdutoId(dto.idProduto())
-        .orElseThrow(() -> new ProdutoNaoEncontradoException("Produto não encontrado para ID: " + dto.idProduto()));
+        Estoque estoque = estoqueRepository.findByProdutoId(dto.idProduto())
+            .orElseThrow(() -> new ProdutoNaoEncontradoException("Produto não encontrado para ID: " + dto.idProduto()));
 
     estoque.setQuantidade(dto.quantidade());
     Estoque salvo = estoqueRepository.save(estoque);
