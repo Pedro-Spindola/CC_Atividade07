@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.lp7.atividade07.dto.EstoqueRequestDTO;
 import com.lp7.atividade07.dto.EstoqueResponseDTO;
+import com.lp7.atividade07.exception.CampoObrigatorioNuloException;
+import com.lp7.atividade07.exception.ProdutoNaoEncontradoException;
 import com.lp7.atividade07.mapper.EstoqueMapper;
 import com.lp7.atividade07.model.Estoque;
 import com.lp7.atividade07.repository.EstoqueRepository;
@@ -12,7 +14,7 @@ import com.lp7.atividade07.repository.ProdutoRepository;
 
 @Service
 public class EstoqueService {
-     @Autowired
+    @Autowired
     ProdutoRepository produtoRepository;
 
     @Autowired
@@ -26,17 +28,27 @@ public class EstoqueService {
         return estoqueMapper.toResponseDTO(estoque);
 }
 
- // ATUALIZAR / EDITAR ESTOQUE
-    public EstoqueResponseDTO atualizarEstoque(EstoqueRequestDTO dto){
-        // Procurar estoque existente pelo produto
-        Estoque estoque = estoqueRepository.findByProdutoId(dto.idProduto()).orElse(null);
-        // Atualiza a quantidade
-        estoque.setQuantidade(dto.quantidade());
-        // Salva no banco
-        Estoque salvo = estoqueRepository.save(estoque);
-        // Retorna o DTO de resposta
-        return estoqueMapper.toResponseDTO(salvo);
-    }
+
+  public EstoqueResponseDTO atualizarEstoqueProduto(EstoqueRequestDTO dto){
+    System.out.println("Meu dto: " + dto.idProduto() + " - " + dto.quantidade());
+
+      if(dto.idProduto() == null)
+            throw new CampoObrigatorioNuloException("id do produto");
+
+        if(dto.quantidade() == null)
+            throw new CampoObrigatorioNuloException("quantidade é obrigatótio");
+
+        if(dto.quantidade() < 0)
+            throw new CampoObrigatorioNuloException("quantidade deve ser maior ou igual a zero");
+
+        Estoque estoque = estoqueRepository.findByProdutoId(dto.idProduto())
+            .orElseThrow(() -> new ProdutoNaoEncontradoException("Produto não encontrado para ID: " + dto.idProduto()));
+
+    estoque.setQuantidade(dto.quantidade());
+    Estoque salvo = estoqueRepository.save(estoque);
+
+    return estoqueMapper.toResponseDTO(salvo);
+  }
 }
 
 

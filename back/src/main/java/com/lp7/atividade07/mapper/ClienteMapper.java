@@ -15,7 +15,7 @@ public class ClienteMapper {
         cliente.setTipo(dto.tipo());
         cliente.setDocumento(dto.documento());
         cliente.setEndereco(dto.endereco());
-        cliente.setStatus(dto.statusCliente());
+        cliente.setStatus(dto.status());
 
         return cliente;
     }

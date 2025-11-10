@@ -18,7 +18,7 @@ public class UsuarioMapper {
 
     return usuario;
 } 
-public UsuarioResponseDTO tResponseDTO(Usuario usuario){
+public UsuarioResponseDTO toResponseDTO(Usuario usuario){
     return new UsuarioResponseDTO(
         usuario.getId(),
         usuario.getNome(),
